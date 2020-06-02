@@ -1,0 +1,32 @@
+{
+    "interfaces": {
+	"v1": { "channel" : "vcan3",
+                "bustype" : "socketcan",
+                "port_nr" : 0,
+                "bitrate" : 500000},
+	"pt": { "channel" : "vcan0",
+                "bustype" : "socketcan",
+                "port_nr" : 0,
+		"bitrate" : 500000},
+	"ext": { "channel" : "vcan1",
+                 "bustype" : "socketcan",
+                 "port_nr" : 0,
+		 "bitrate" : 500000},
+	"chassis": { "channel" : "vcan6",
+                 "bustype" : "socketcan",
+                 "port_nr" : 0,
+		 "bitrate" : 500000},
+	"v2": { "channel" : "vcan4",
+                 "bustype" : "socketcan",
+                 "port_nr" : 0,
+		 "bitrate" : 500000},
+	"ic": { "channel" : "vcan5",
+                 "bustype" : "socketcan",
+                 "port_nr" : 0,
+		 "bitrate" : 500000},
+	"dlc": { "channel" : "vcan2",
+                 "bustype" : "socketcan",
+                 "port_nr" : 0,
+                 "bitrate" : 500000}
+    }
+}

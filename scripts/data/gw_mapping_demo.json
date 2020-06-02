@@ -1,0 +1,24 @@
+{
+    "interfaces": {
+	"SAFETY": {
+	    "channel" : "vcan1",
+            "bustype" : "socketcan",
+            "port_nr" : 0,
+            "bitrate" : 500000},
+	"DIAG": {
+	    "channel" : "vcan3",
+            "bustype" : "socketcan",
+            "port_nr" : 0,
+	    "bitrate" : 500000},
+	"ADAS": {
+	    "channel" : "vcan2",
+            "bustype" : "socketcan",
+            "port_nr" : 0,
+	    "bitrate" : 500000},
+	"MULTIMEDIA": {
+	    "channel" : "vcan0",
+            "bustype" : "socketcan",
+            "port_nr" : 0,
+	    "bitrate" : 500000}
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "interfaces": {
+	"v1": { "channel" : "vcan1",
+                "bustype" : "socketcan",
+                "port_nr" : 0,
+                "bitrate" : 500000},
+	"ext": { "channel" : "vcan2",
+                "bustype" : "socketcan",
+                "port_nr" : 0,
+                "bitrate" : 500000},
+        "dlc": { "channel" : "B",
+                 "bustype" : "komodo",
+                 "port_nr" : 0,
+                 "bitrate" : 500000},
+        "pt": { "channel" : "A",
+                 "bustype" : "komodo",
+                 "port_nr" : 1,
+                 "bitrate" : 500000}
+    }
+}
