@@ -54,11 +54,11 @@ def services (ctx, rge = list(range(0xbf))):
         lservices.append(i)
 
     for i in lservices:
-        name = "unknown"
+        name = "unknw"
         if i in uds.serivice_generic:
             name = uds.serivice_generic[i]
 
-        context.output ("scan.services discovered %x %s " %(i, name) )
+        context.output ("scan.services discovered %x %s " %(i,name)) 
     return lservices
 
 def services_sessions(ctx):
