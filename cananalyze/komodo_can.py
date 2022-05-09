@@ -75,8 +75,7 @@ def write (ctx, msg, can_id = -1):
         pkt.id = can_id
     pkt.dlc        = msg.dlc
 
-    if ctx.get_extended_id() == context.Ctx.ExtendedMode.FORCED_EXTENDED or \
-       (ctx.get_extended_id() == context.Ctx.ExtendedMode.AUTO and can_id > 0xFFF):
+    if ctx.get_extended_id() == context.Ctx.ExtendedMode.FORCED_EXTENDED or pkt.id > 0xFFF:
         pkt.extend_addr= True
     else:
         pkt.extend_addr= False
