@@ -121,9 +121,15 @@ def dbis (ctx, rge = list(range(0xffff))):
     """Read all dbi for a specific range.
     :param ctx: application context
     :rge: list of dbi to read
+    :return: list of discovered dbis
     """
+    ldbis  = list()
+ 
     for i in rge:
-        dbi.read (ctx, i) 
-      
+        (error, data) = dbi.read (ctx, i) 
+        if error == 0:
+            ldbis.append(i)
 
-
+    for i in ldbis:
+        context.output ("scan.dbis discovered %x " % i )
+    return ldbis

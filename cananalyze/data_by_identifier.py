@@ -55,4 +55,4 @@ def read (ctx, id):
         return -1, None
 
     context.output ("read_dbi: " + hex_array (data), ctx)
-    return 0, data
+    return err, data
