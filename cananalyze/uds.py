@@ -6,7 +6,7 @@ Unified Diagnostic Services module
 from . import context 
 from . import isotp 
 
-serivice_generic = {
+service_generic = {
     0x10: "Diagnostic Session Control",
     0x11: "ECU Reset",
     0x14: "Clear Diagnostic Information",
