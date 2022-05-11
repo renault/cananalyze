@@ -58,7 +58,8 @@ def services (ctx, rge = list(range(0xbf))):
         if i in uds.service_generic:
             name = uds.service_generic[i]
 
-        context.output ("scan.services discovered %x %s " %(i, name) )
+
+        context.output ("scan.services discovered %x %s " %(i,name)) 
     return lservices
 
 def services_sessions(ctx):

@@ -96,7 +96,10 @@ def read (ctx, func_name, sid, limit = 10):
             code_s = nrc_generic [code]
 
         context.output ( func_name \
-                + ": NRC received ({0:X}, {1:s})".format (code, code_s))
+                + ": NRC received for sid %x (%s) with nrc %x (%s)"%(sid, 
+                                                                              serivice_generic[sid] if sid in serivice_generic else "unkn", 
+                                                                              code, 
+                                                                              code_s))
         return -2, data
         
     return 0, data
