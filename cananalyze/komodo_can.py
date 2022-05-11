@@ -8,7 +8,8 @@ CAN interface for Komodo module.
 import argparse
 import can
 
-from . import komodo_py
+import komodo_py
+import array
 from . import context
 import threading
 from . import tools
@@ -28,9 +29,9 @@ def _km_print_err (func_name, ret):
     :param ret: the returned code
     :return: ret
     """
-    if ret == KM_OK:
+    if ret == komodo_py.KM_OK:
         return ret
-    context.output (func_name + ": %d %s" % (ret, km_status_string (ret)))
+    context.output (func_name + ": %d %s" % (ret, komodo_py.km_status_string (ret)))
     return ret
 
 
@@ -42,11 +43,11 @@ def init (ctx):
     """
     # Komodo parameters
     if ctx.get_channel() == "A":
-        ctx.set_channel(KM_CAN_CH_A)
+        ctx.set_channel(komodo_py.KM_CAN_CH_A)
     else:
-        ctx.set_channel(KM_CAN_CH_B)
+        ctx.set_channel(komodo_py.KM_CAN_CH_B)
     if ctx.get_timeout() is None:
-        ctx.set_timeout(KM_TIMEOUT_INFINITE)
+        ctx.set_timeout(komodo_py.KM_TIMEOUT_INFINITE)
 
     ret = _km_open_port (ctx.get_port_nr(), ctx.get_channel(), ctx.get_bitrate(), ctx.get_timeout())
     if -1 == ret:
@@ -54,7 +55,7 @@ def init (ctx):
     kmtmp, prot_ltmp = ports [ctx.get_port_nr()]
     ctx.set_port_l(prot_ltmp)
     ctx.km = kmtmp
-    ctx.set_samplerate(km_get_samplerate (ctx.km))
+    ctx.set_samplerate(komodo_py.km_get_samplerate (ctx.km))
     ctx.set_bus(None)
     return 0
 
@@ -68,7 +69,7 @@ def write (ctx, msg, can_id = -1):
     :return: 0 on success -1 on error
     """
 
-    pkt            = km_can_packet_t()
+    pkt            = komodo_py.km_can_packet_t()
     if can_id == -1:
         pkt.id = ctx.canid_send()
     else:
@@ -84,14 +85,14 @@ def write (ctx, msg, can_id = -1):
            " extended " + str(pkt.extend_addr)  )
 
     ctx.lock_acquire ()
-    ret, arbitration_count = km_can_write (ctx.km,
+    ret, arbitration_count = komodo_py.km_can_write (ctx.km,
                                            ctx.get_channel(),
                                            0,
                                            pkt,
-                                           array ('B', msg.data))
+                                           array.array ('B', msg.data))
     ctx.lock_release()
  
-    if ret != KM_OK:
+    if ret != komodo_py.KM_OK:
         _km_print_err ("komodo_can.write:", ret)
         return -1
     return 0
@@ -105,10 +106,10 @@ def read (ctx):
     """
     msg = None
     ctx.lock_acquire ()
-    ret, info, pkt, data = km_can_read (ctx.km, array_u08 (8))
+    ret, info, pkt, data = komodo_py.km_can_read (ctx.km, komodo_py.array_u08 (8))
     ctx.lock_release()
 
-    if not (info.status & KM_READ_TIMEOUT) and  pkt.dlc != 0:
+    if not (info.status & komodo_py.KM_READ_TIMEOUT) and  pkt.dlc != 0:
         # FIXME missing parameters ?
         msg = can.Message(timestamp=info.timestamp,
                       arbitration_id=pkt.id,
@@ -149,15 +150,15 @@ def print_events (events, bitrate):
     """
     ret = ""
     event_strings = {
-        KM_EVENT_CAN_BUS_STATE_LISTEN_ONLY : "BUS STATE LISTEN ONLY",
-        KM_EVENT_CAN_BUS_STATE_CONTROL : "BUS STATE CONTROL",
-        KM_EVENT_CAN_BUS_STATE_WARNING : "BUS STATE WARNING",
-        KM_EVENT_CAN_BUS_STATE_ACTIVE : "BUS STATE ACTIVE",
-        KM_EVENT_CAN_BUS_STATE_PASSIVE : "BUS STATE PASSIVE",
-        KM_EVENT_CAN_BUS_STATE_OFF : "BUS STATE OFF",
-        KM_EVENT_CAN_BUS_BITRATE : "BITRATE %d kHz" % (bitrate / 1000),
-        KM_EVENT_DIGITAL_INPUT : "GPIO CHANGE 0x%x;" \
-        % (events & KM_EVENT_DIGITAL_INPUT_MASK)
+        komodo_py.KM_EVENT_CAN_BUS_STATE_LISTEN_ONLY : "BUS STATE LISTEN ONLY",
+        komodo_py.KM_EVENT_CAN_BUS_STATE_CONTROL : "BUS STATE CONTROL",
+        komodo_py.KM_EVENT_CAN_BUS_STATE_WARNING : "BUS STATE WARNING",
+        komodo_py.KM_EVENT_CAN_BUS_STATE_ACTIVE : "BUS STATE ACTIVE",
+        komodo_py.KM_EVENT_CAN_BUS_STATE_PASSIVE : "BUS STATE PASSIVE",
+        komodo_py.KM_EVENT_CAN_BUS_STATE_OFF : "BUS STATE OFF",
+        komodo_py.KM_EVENT_CAN_BUS_BITRATE : "BITRATE %d kHz" % (bitrate / 1000),
+        komodo_py.KM_EVENT_DIGITAL_INPUT : "GPIO CHANGE 0x%x;" \
+        % (events & komodo_py.KM_EVENT_DIGITAL_INPUT_MASK)
     }
 
     if events == 0:
@@ -177,12 +178,12 @@ def print_status (status):
     :return: string status
     """
     status_strings = {
-        KM_OK : "OK",
-        KM_READ_TIMEOUT : "TIMEOUT",
-        KM_READ_ERR_OVERFLOW : "OVERFLOW",
-        KM_READ_END_OF_CAPTURE : "END OF CAPTURE",
-        KM_READ_CAN_ARB_LOST : "ARBITRATION LOST",
-        KM_READ_CAN_ERR : "ERROR %x" % (status & KM_READ_CAN_ERR_FULL_MASK),
+        komodo_py.KM_OK : "OK",
+        komodo_py.KM_READ_TIMEOUT : "TIMEOUT",
+        komodo_py.KM_READ_ERR_OVERFLOW : "OVERFLOW",
+        komodo_py.KM_READ_END_OF_CAPTURE : "END OF CAPTURE",
+        komodo_py.KM_READ_CAN_ARB_LOST : "ARBITRATION LOST",
+        komodo_py.KM_READ_CAN_ERR : "ERROR %x" % (status & komodo_py.KM_READ_CAN_ERR_FULL_MASK),
     }
     ret = ""
     for item in list(status_strings.items ()):
@@ -213,7 +214,7 @@ def print_status (status):
 #
 #    namespace = parser.parse_args ()
 #    return namespace.port, \
-#        KM_CAN_CH_A if namespace.channel == "A" else KM_CAN_CH_B, \
+#        komodo_py.KM_CAN_CH_A if namespace.channel == "A" else komodo_py.KM_CAN_CH_B, \
 #        namespace.bitrate, namespace.canid_recv, namespace.canid_send, \
 #        namespace.timeout
 #
@@ -230,15 +231,15 @@ def _km_init_channel (km, channel, bitrate, timeout):
         return 0
 
     # Permissions required to configure channel
-    features = KM_FEATURE_CAN_A_LISTEN \
-               | KM_FEATURE_CAN_A_CONFIG \
-               | KM_FEATURE_CAN_A_CONTROL
+    features = komodo_py.KM_FEATURE_CAN_A_LISTEN \
+               | komodo_py.KM_FEATURE_CAN_A_CONFIG \
+               | komodo_py.KM_FEATURE_CAN_A_CONTROL
 
-    if channel == KM_CAN_CH_A:
-        ret = km_acquire (km, features)
+    if channel == komodo_py.KM_CAN_CH_A:
+        ret = komodo_py.km_acquire (km, features)
     else:
         features = features << 3
-        ret = km_acquire (km, features)
+        ret = komodo_py.km_acquire (km, features)
 
     if ret != features:
         _km_print_err ("komodo_can.km_init_channel:", ret)
@@ -247,17 +248,17 @@ def _km_init_channel (km, channel, bitrate, timeout):
     context.output ("km_init_channel: Acquired features: %x" % ret)
 
     """
-    if km_can_configure(km, KM_CAN_CONFIG_LISTEN_SELF) != KM_OK: 
-        context.output ("open_port: Unable to configure km with km_can_configure")
+    if komodo_py.km_can_configure(km, komodo_py.KM_CAN_CONFIG_LISTEN_SELF) != komodo_py.KM_OK: 
+        context.output ("open_port: Unable to configure km with komodo_py.km_can_configure")
         return -1
     """
 
     # Set bitrate and timeout configuration values
-    ret = km_can_bitrate (km, channel, bitrate)
+    ret = komodo_py.km_can_bitrate (km, channel, bitrate)
     context.output ("km_init_channel: bitrate set to %d" % ret) 
-    ret = km_timeout (km, int(timeout * 1000))
+    ret = komodo_py.km_timeout (km, int(timeout * 1000))
 
-    if ret != KM_OK:
+    if ret != komodo_py.KM_OK:
         _km_print_err ("komodo_can.km_init_channel:", ret)
         return -1
 
@@ -279,17 +280,17 @@ def _km_open_port (port_nr, channel, bitrate, timeout, bus_timeout = 1200):
         return ports [port_nr] [0]
 
     context.debug (4, "_km_open_port: try to open port %d" % port_nr)
-    km = km_open (port_nr)
+    km = komodo_py.km_open (port_nr)
 
     if km <= 0:
-        av_ports = array_u16 (10)
+        av_ports = komodo_py.array_u16 (10)
         km_find_devices (av_ports)
         context.debug  (4, "_km_open_port: Available ports %s" % ", ".join (map (str, av_ports)))
 
-        if km == KM_UNABLE_TO_OPEN:
+        if km == komodo_py.KM_UNABLE_TO_OPEN:
             context.debug (1, "_km_open_port: Unable to open desired port")
             return -1
-        elif km == KM_INCOMPATIBLE_DEVICE:
+        elif km == komodo_py.KM_INCOMPATIBLE_DEVICE:
             context.debug (1, \
                 """_km_open_port: Current device is not compatible with
                 installed shared library
@@ -303,13 +304,13 @@ def _km_open_port (port_nr, channel, bitrate, timeout, bus_timeout = 1200):
         context.debug (1, "_km_open_port: init_channel failed")
         return -1
 
-    ret = km_can_bus_timeout (km, channel, bus_timeout)
+    ret = komodo_py.km_can_bus_timeout (km, channel, bus_timeout)
     context.debug (3, "_km_open_port: bus timeout set to %d" % ret)
 
     # enable komodo
-    ret = km_enable (km)
+    ret = komodo_py.km_enable (km)
 
-    if ret != KM_OK:
+    if ret != komodo_py.KM_OK:
         _km_print_err ("komodo_can._km_open_port:", ret)
         return -1
 
@@ -320,12 +321,12 @@ def _km_open_port (port_nr, channel, bitrate, timeout, bus_timeout = 1200):
 def port_set_state (ctx, enable = 1):
     ctx.lock_acquire ()
     if enable:
-        ret = km_enable (ctx.km)
+        ret = komodo_py.km_enable (ctx.km)
     else:
         ret = km_disable (ctx.km)
     ctx.lock_release()
 
-    if ret != KM_OK:
+    if ret != komodo_py.KM_OK:
         _km_print_err ("komodo_can.port_set_state:", ret)
     return ret
 
@@ -333,7 +334,7 @@ def port_set_state (ctx, enable = 1):
 def samplerate_khz (ctx):
     port_set_state (ctx, 0)
     ctx.lock_acquire ()
-    samplerate_khz = km_get_samplerate (ctx.km) / 1000
+    samplerate_khz = komodo_py.km_get_samplerate (ctx.km) / 1000
     ctx.lock_release()
     port_set_state (ctx, 1)
     return samplerate_khz
