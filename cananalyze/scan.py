@@ -54,9 +54,10 @@ def services (ctx, rge = list(range(0xbf))):
         lservices.append(i)
 
     for i in lservices:
-        name = "unknw"
-        if i in uds.serivice_generic:
-            name = uds.serivice_generic[i]
+        name = "unknown"
+        if i in uds.service_generic:
+            name = uds.service_generic[i]
+
 
         context.output ("scan.services discovered %x %s " %(i,name)) 
     return lservices
@@ -121,9 +122,15 @@ def dbis (ctx, rge = list(range(0xffff))):
     """Read all dbi for a specific range.
     :param ctx: application context
     :rge: list of dbi to read
+    :return: list of discovered dbis
     """
+    ldbis  = list()
+ 
     for i in rge:
-        dbi.read (ctx, i) 
-      
+        (error, data) = dbi.read (ctx, i) 
+        if error == 0:
+            ldbis.append(i)
 
-
+    for i in ldbis:
+        context.output ("scan.dbis discovered %x " % i )
+    return ldbis

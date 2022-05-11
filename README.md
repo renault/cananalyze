@@ -167,6 +167,7 @@ To compile the documentation you need to install the sphinx package
 (for us test we have used the version 1.6.7)
 
 ````
+pip install termcolor
 make doc
 ````
 
