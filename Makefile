@@ -16,7 +16,6 @@ install:
 	${RUN} setup.py install
 
 test:
-	${RUN} tests/unittest_pycan.py
 	${RUN} tests/unittest_isotp.py
 	${RUN} tests/unittest_uds.py
 	${RUN} tests/unittest_dbi.py
