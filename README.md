@@ -79,7 +79,7 @@ $ python3 scripts/id_uds.py A komodo
 ## Detecting the UDS service
 This script detect the UDS services (before executing the script you must change the CANid)
 ````
-$ python3 scripts/nmap.py A komodo
+$ python3 scripts/nmap.py A komodo 0x7ca 0x7da services
 [Thread 83456 - 1554369085.510]km_init_channel: Acquired features: 38
 [Thread 83456 - 1554369085.511]km_init_channel: bitrate set to 500000
 [Thread 83456 - 1554369085.511]km_init_channel: timeout set to 1 seconds

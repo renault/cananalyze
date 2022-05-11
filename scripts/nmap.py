@@ -18,7 +18,7 @@ if __name__ == "__main__":
     parser.add_argument("bustype", help="\"komodo\",  \"socketcan\", ... ")
     parser.add_argument("canid_recv", help="canid recv")
     parser.add_argument("canid_send", help="canid send")
-    parser.add_argument("session_or_services", help="Scan type (session or services)")
+    parser.add_argument("session_or_services", help="Scan type (sessions or services)")
     parser.add_argument("--count", help="the number of packets to get")
     args = parser.parse_args()
 
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     session.pause_tester_present(ctx)
 
 
-    if (args.session_or_services == 'session'):
+    if (args.session_or_services == 'sessions'):
         scan.sessions(ctx)
     elif (args.session_or_services == 'services'):
         scan.services(ctx)
