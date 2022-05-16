@@ -4,7 +4,7 @@ This script dumps all ISOTP messages read from an interface.
 '''
 
 import sys
-from array import array, ArrayType
+from array import array
 import time
 import can
 import argparse

@@ -3,7 +3,7 @@
 ISO-TP ISO 15765-2 data packets over CAN-Bus (Transport Layer) module
 """
 
-from array import array, ArrayType
+from array import array
 from cananalyze.tools import *
 from . import context 
 import can

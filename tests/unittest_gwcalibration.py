@@ -1,10 +1,9 @@
 #!/usr/bin/env python2
 
-from array import array, ArrayType
+from array import array
 import os, time
 import json
 import unittest
-import netifaces
 from tests_tools import *
 import scripts.gw_calibration_tools as cal
 

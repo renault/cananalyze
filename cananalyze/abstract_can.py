@@ -3,7 +3,6 @@
 Abstract Controller Area Network module
 """
 
-import cananalyze.tools
 from . import context
 import time
 from . import python_can as pycan

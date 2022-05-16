@@ -13,7 +13,6 @@ import os
 import sys
 import time
 import multiprocessing as mp
-import netifaces
 import signal
 import json
 import queue

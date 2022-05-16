@@ -5,7 +5,7 @@ Controller Area Network module
 CAN interface python-can
 """
 
-from array import array, ArrayType
+from array import array
 import can
 import copy
 import context

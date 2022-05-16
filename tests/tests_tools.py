@@ -3,7 +3,6 @@
 #from array import array, ArrayType
 import os, time
 from multiprocessing import Process, Lock, Value, Queue
-import netifaces
 import cananalyze.abstract_can as vcan
 import cananalyze.isotp as isotp
 import cananalyze.context as context
