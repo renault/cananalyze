@@ -8,7 +8,7 @@ import cananalyze.abstract_can as vcan
 import cananalyze.context as context
 import cananalyze.isotp as isotp
 import cananalyze.security_access as sa
-from tests_tools import *
+import tests_tools
 
 ctxlock = Lock()
 intf='vcan0'
@@ -32,12 +32,12 @@ class TestUDS(unittest.TestCase):
         p.join()
 
 if __name__ == '__main__':
-    
-    ctx1 = context.create_ctx (channel = intf, bustype = 'socketcan', bitrate = 115200, canid_recv = 0x400, canid_send = 0x450, timeout = 1)
-    ctx2 = context.create_ctx (channel = intf, bustype = 'socketcan', bitrate = 115200, canid_recv = 0x450, canid_send = 0x400, timeout = 1)
- 
-    TestUDS.ctxECU = ctx1
-    TestUDS.ctxt   = ctx2
-    unittest.main(exit=False)
+    if tests_tools.check_context(intf): 
+        ctx1 = context.create_ctx (channel = intf, bustype = 'socketcan', bitrate = 115200, canid_recv = 0x400, canid_send = 0x450, timeout = 1)
+        ctx2 = context.create_ctx (channel = intf, bustype = 'socketcan', bitrate = 115200, canid_recv = 0x450, canid_send = 0x400, timeout = 1)
+     
+        TestUDS.ctxECU = ctx1
+        TestUDS.ctxt   = ctx2
+        unittest.main(exit=False)
     
     
