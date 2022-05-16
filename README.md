@@ -29,7 +29,7 @@ After downloading and extracting the komodo package, you need to copy "komodo_py
 ## Installation
 
 You can intall the framework with the following commandline
-``` 
+```
 make install 
 ```
 
@@ -44,6 +44,7 @@ To compile the documentation you need to install the sphinx package
 (for us test we have used the version 1.6.7)
 
 ````
+pip install termcolor
 make doc
 ````
 
@@ -58,6 +59,7 @@ docs/build/html/index.html
 The framework comes with a set of unit tests.
 
 ````
+pip install unittest 
 make test
 ````
 
@@ -160,27 +162,3 @@ R: ic [0x167 - 0xb'1c606e5cc986']
 R: v2 [0x3d5 - 0xb'a5018b34f3']
 R: ic [0x6d6 - 0xb'd04d055042317e1a']
 ````
-
-# Documentation
-
-To compile the documentation you need to install the sphinx package
-(for us test we have used the version 1.6.7)
-
-````
-pip install termcolor
-make doc
-````
-
-And open with your browser:
-
-````
-docs/build/html/index.html
-````
-
-# Tests
-
-The framework comes with a set of unit tests.
-````
-make test
-````
-
