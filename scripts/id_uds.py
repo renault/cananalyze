@@ -3,16 +3,13 @@
 This script detects the UDS CANid, this script tries to start an UDS session for each canid (no extended). The script prints all the CANids(received) sending an UDS answer.
 '''
 
-import threading
 import time
 import can
 import sys
+from cananalyze.tools import *
 import cananalyze.abstract_can as vcan
-import cananalyze.uds as uds
 import cananalyze.context as context
 import argparse
-from cananalyze.tools import *
-from cananalyze.context import BusType
 
 
 """

@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 
-from array import array
-import os, time
-from multiprocessing import Process, Lock, Value, Queue
+from multiprocessing import Process, Lock
 import unittest
-import cananalyze.abstract_can as vcan
 import cananalyze.context as context
 import cananalyze.isotp as isotp
-import cananalyze.security_access as sa
 import tests_tools
 
 ctxlock = Lock()

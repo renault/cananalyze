@@ -9,7 +9,6 @@ defines the CAN interfaces and the corresponding module.
 Press CTRL+C to stop the gateway.
 '''
 
-import os
 import sys
 import time
 import multiprocessing as mp

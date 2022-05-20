@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 
-from array import array
-import os, time
 import json
 import unittest
-from tests_tools import *
 import scripts.gw_calibration_tools as cal
 
 calibration_file = "./tests/data/gw_calibration_test1.json"

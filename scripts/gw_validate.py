@@ -17,24 +17,19 @@ The script will run different tests:
 
 '''
 
-import os
 import sys
 import time
 import multiprocessing
 import signal
 import json
-import queue
 import codecs
 from termcolor import colored
 import can
-from copy import deepcopy
 import argparse
 
 import cananalyze.abstract_can as vcan
-import cananalyze.uds as uds
 import cananalyze.context as context
 import scripts.gw_calibration_tools as cal
-from array import array
 
 pids = []
 canid_range = 0x7ff

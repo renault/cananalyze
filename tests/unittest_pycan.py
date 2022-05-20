@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 
-from array import array
-import os, time
+import time
 from multiprocessing import Process, Lock, Value, Queue
 import unittest
-import cananalyze.abstract_can as vcan
-import cananalyze.context as context
 import tests_tools
 
 intf = 'vcan0'

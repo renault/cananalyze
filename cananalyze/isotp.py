@@ -244,7 +244,6 @@ def _read_first (ctx,
     :return: tuple (err, data) err is -1 on error else 0
     """
 
-    count = 0
     timestamp = timestamp if timestamp != -1 else ctx.get_last_timestamp()
     cache = context.cache_lookup (ctx, timestamp)
     cache.reverse ()

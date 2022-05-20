@@ -5,7 +5,6 @@ Controller Area Network module
 CAN interface for Komodo module.
 """
 
-import argparse
 import can
 
 import komodo_py
@@ -192,32 +191,7 @@ def print_status (status):
     return ret if ret else "UNKNOWN (%d)" % status
 
 
-#def arg_parse ():
-#    Komodo argument parser for channel initialization
-#    :return: tuple (port, channel, bitrate, canid receive, canid send, timeout)
-#    
-#    parser = argparse.ArgumentParser (
-#        description = "Komodo channel initialization")
-#
-#    parser.add_argument ("--port", "-p", default = 0, type = int,
-#                         help = "komodo port number selection")
-#    parser.add_argument ("--channel", "-c", choices = ["A", "B"], default = "A",
-#                         help = "komodo channel selection")
-#    parser.add_argument ("--bitrate", "-b", type = int, default = 500000,
-#                         help = "CAN bitrate, in Hz")
-#    parser.add_argument ("--timeout", type = int, default = 4000,
-#                         help = "CAN read timeout")
-#    parser.add_argument ("--canid-recv", type = int, default = 0x652,
-#                         help = "canid on reception side")
-#    parser.add_argument ("--canid-send", type = int, default = 0x752,
-#                         help = "canid on emission side")
-#
-#    namespace = parser.parse_args ()
-#    return namespace.port, \
-#        komodo_py.KM_CAN_CH_A if namespace.channel == "A" else komodo_py.KM_CAN_CH_B, \
-#        namespace.bitrate, namespace.canid_recv, namespace.canid_send, \
-#        namespace.timeout
-#
+
 
 def _km_init_channel (km, channel, bitrate, timeout):
     """Init a komodo channel according to given arguments and a disabled

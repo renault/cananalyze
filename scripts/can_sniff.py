@@ -3,15 +3,10 @@
 This script dumps all CAN messages read from an interface.
 '''
 
-import sys
-from array import array
-import time
-import can
 import argparse
 
 import cananalyze.abstract_can as vcan
 import cananalyze.context as context
-from cananalyze.context import BusType
 
 if __name__ == "__main__":
 

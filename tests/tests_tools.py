@@ -2,7 +2,6 @@
 
 #from array import array, ArrayType
 import os, time
-from multiprocessing import Process, Lock, Value, Queue
 import cananalyze.abstract_can as vcan
 import cananalyze.isotp as isotp
 import cananalyze.context as context
@@ -91,7 +90,7 @@ def write_process(intf, is_isotp, end, auto_end, test, lock, queue):
             if not queue.empty():
                 for d in queue.get():
                     if is_isotp:
-                        set_canid_send (write_ctx, d[0])
+                        context.set_canid_send (write_ctx, d[0])
                         isotp.write (write_ctx, d[1:])
                     else:
                         msg = can.Message(data =  d[1:])
@@ -147,7 +146,6 @@ def load_testfile(path):
     cans = []
     f = open(path, "r")
     for l in f.readlines():
-        r = []
         l = l.strip().split(' ')
         l = l[2]
         l = l.strip().split('#')

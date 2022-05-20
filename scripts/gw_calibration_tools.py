@@ -3,10 +3,7 @@
 Gateway calibration check
 '''
 
-import os
-import sys
 import codecs
-from array import array
 
 from cananalyze.context import BusType
 import tests.tests_tools as tests_tools

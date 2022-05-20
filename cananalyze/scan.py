@@ -1,9 +1,5 @@
-import sys
-import threading
 import time
-import can
 
-import cananalyze.abstract_can as vcan
 import cananalyze.uds as uds
 import cananalyze.diag_session as session
 import cananalyze.data_by_identifier as dbi

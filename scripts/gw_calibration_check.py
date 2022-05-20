@@ -8,10 +8,8 @@ The tool takes as argument a calibration file.
 Warning: code not hardened for invalid inputs
 '''
 
-import os
 import sys
 import json
-import can
 
 import scripts.gw_calibration_tools as cal
 

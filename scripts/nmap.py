@@ -3,9 +3,7 @@
 This script detects the UDS services (before executing the script you must change the CANid)
 '''
 
-import os
 import sys
-import time
 import argparse
 import cananalyze.scan as scan
 import cananalyze.context as context

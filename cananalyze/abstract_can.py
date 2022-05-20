@@ -7,6 +7,7 @@ from . import context
 import time
 from . import python_can as pycan
 from . import komodo_can as kcan
+from . import tools as tools 
 
 
 def write (ctx, msg, can_id = -1):

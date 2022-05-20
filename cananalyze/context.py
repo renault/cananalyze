@@ -7,10 +7,8 @@ Manage contexts, opened ports, initialized channels ...
 """
 
 import os
-import pdb
 import time
 import threading
-import time 
 import signal
 import sys
 import can

@@ -11,7 +11,6 @@ Implement data transmission functional unit :
 from cananalyze.tools import *
 from . import context 
 from . import uds
-import sys
 
 
 def write (ctx, id, data):

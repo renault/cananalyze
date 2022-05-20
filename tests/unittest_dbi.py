@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 
 from array import array
-import os, time
+import time
 import can
-from multiprocessing import Process, Lock, Value, Queue
+from multiprocessing import Process, Lock
 import unittest
 import cananalyze.abstract_can as vcan
 import cananalyze.context as context
-import cananalyze.isotp as isotp
-import cananalyze.diag_session as diag
 import cananalyze.data_by_identifier as dbi
 import tests_tools
 
