@@ -11,9 +11,7 @@ setup(
     description='framework to interact with automotive protocols like CAN/ISOTP/UDS and emulate ECU',
     long_description=open('README.md').read(),
     install_requires=[
-        "python-can==3.3.1",
-        "netifaces==0.10.4",
-        "pkcs7==0.1.2",
-        "sphinx-rtd-theme==0.4.2",
+        "python-can==4.0.0",
+        "sphinx-rtd-theme==1.0.0",
     ],
 )
