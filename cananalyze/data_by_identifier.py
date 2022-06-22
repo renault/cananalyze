@@ -19,20 +19,20 @@ def write (ctx, id, data):
     :param ctx: application context
     :param id: the identifier
     :param data: data buffer to write
-    :return: data read
+    :return: -1 on error else 0, data read
     """
     dbi = [(id & 0xff00) >> 8, id & 0xff]
     ret = uds.write (ctx, [0x2E] +  dbi + data)
     if -1 == ret:
-        return ret
+        return ret, None
 
     (err, data) = uds.read (ctx, "read_dbi", 0x2E)
     if -1 == err:
         context.output ("write_dbi: no response", ctx)
-        return -1
+        return -1, data
 
     context.output ("write_dbi: " + hex_array (data), ctx)
-    return data
+    return err, data
 
 def read (ctx, id):
     """Read data by identifier
