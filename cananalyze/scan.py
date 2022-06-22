@@ -120,11 +120,16 @@ def dbis (ctx, rge = list(range(0xffff))):
     :rge: list of dbi to read
     :return: list of discovered dbis
     """
-    ldbis  = dict()
- 
+    ldbis    = dict()
+    ldbis_w  = list()
     for i in rge:
         (error, data) = dbi.read (ctx, i) 
         if error == 0:
-            ldbis[i] = data
+            ldbis[i] = data[3:]
+            error, data = dbi.write(ctx, i, data[3:])
+            if error == 0:
+                ldbis_w.append(i)
     context.output("scan.dbis discovered :" + '[{}]'.format(', '.join(hex(did) for did in list(ldbis.keys()))))
+    context.output("scan.dbis writeable discovered :" + '[{}]'.format(', '.join(hex(did) for did in ldbis_w)))
+ 
     return ldbis
