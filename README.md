@@ -13,29 +13,29 @@ This is a python3 framework. The framework was tested with an ubuntu 18.04 and a
 
 ## Prerequisite
 
-### Python prerequisite
-
-You need to install some python dependencies:
-
-``` 
-pip install -r requirements.txt 
-```
-
 ### Komodo prerequisite
 
 if you want to use komodo hardwear, you need to download komodo package (v1.40) on Totalphase website (https://www.totalphase.com/)
-After downloading and extracting the komodo package, you need to copy "komodo_py.py" and "komodo.so" file inside the cananalyze folder.
+After downloading and extracting the komodo package, you need to copy "komodo_py.py" and "komodo.so" file inside the cananalyze folder. Root privileges are needed by cananalyze to communicate with the komodo device (an udev rule can be created to avoid this).
 
 ## Installation
 
 You can intall the framework with the following commandline
 ```
+git clone https://github.com/renault/cananalyze
+cd cananalyze
+pip install -r requirements.txt
 make install 
 ```
 
 if you want use the framework without install it, you need to configure the PYTHONPATH variable.
+
 ``` 
-export PYTHONPATH=__MY_PATH_TO_THE_PROJECT__:__MY_PATH_TO_THE_PROJECT__/cananalyze 
+git clone https://github.com/renault/cananalyze
+cd cananalyze
+CANANALYZEPATH=`pwd`
+export PYTHONPATH="$CANANALYZEPATH:$CANANALYZEPATH/cananalyze"
+pip install -r requirements.txt
 ```
 
 # Documentation 
@@ -73,13 +73,13 @@ $ python3 scripts/id_uds.py A komodo
 [Thread 95360 - 1582795920.230]km_init_channel: Acquired features: 38
 [Thread 95360 - 1582795920.238]km_init_channel: bitrate set to 500000
 [Thread 95360 - 1582795920.239]km_init_channel: timeout set to 0 ms
-[Thread 95360 - 1582795973.957]Receive id 0x7da data 0x03,0x7f,0x10,0x78,0xff,0xff,0xff,0xff with canid 0x7cc
-[Thread 95360 - 1582795975.224]UDS service detected (canid_send=7cc, canid_receive=7da)
-
+[Thread 95360 - 1582795973.957]Receive id 0x7da data 0x03,0x7f,0x10,0x78,0xff,0xff,0xff,0xff with canid 0x7ca
+[Thread 95360 - 1582795975.224]UDS service detected (canid_send=7ca, canid_receive=7da)
 ````
 
 ## Detecting the UDS service
-This script detect the UDS services (before executing the script you must change the CANid)
+The command below detects the UDS services for the equipement having canid_send=7ca, canid_receive=7da (CANid have to be chosen according your equipement)
+
 ````
 $ python3 scripts/nmap.py A komodo 0x7ca 0x7da services
 [Thread 83456 - 1554369085.510]km_init_channel: Acquired features: 38

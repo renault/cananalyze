@@ -31,7 +31,7 @@ Detecting the UDS service CANid
         [Thread 95360 - 1582795920.230]km_init_channel: Acquired features: 38
         [Thread 95360 - 1582795920.238]km_init_channel: bitrate set to 500000
         [Thread 95360 - 1582795920.239]km_init_channel: timeout set to 0 ms
-        [Thread 95360 - 1582795973.957]Receive id 0x7da data 0x03,0x7f,0x10,0x78,0xff,0xff,0xff,0xff with canid 0x7cc
+        [Thread 95360 - 1582795973.957]Receive id 0x7da data 0x03,0x7f,0x10,0x78,0xff,0xff,0xff,0xff with canid 0x7ca
         [Thread 95360 - 1582795975.224]UDS service detected (canid_send=7ca, canid_receive=7da)
 
 Detecting the UDS services
@@ -41,7 +41,7 @@ Detecting the UDS services
 
 .. code-block:: console
 
-        $ python3 scripts/nmap.py A komodo
+        $ python3 scripts/nmap.py A komodo 0x7ca 0x7da services
         [Thread 83456 - 1554369085.510]km_init_channel: Acquired features: 38
         [Thread 83456 - 1554369085.511]km_init_channel: bitrate set to 500000
         [Thread 83456 - 1554369085.511]km_init_channel: timeout set to 1 seconds
