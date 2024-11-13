@@ -63,6 +63,20 @@ nrc = { 0x10: {}, 0x31: {},
         0x34: { 0x70:  "conditionsNotCorrectForDownload" },
         0x36: { 0x73: "wrongBlockSequenceCounter" }}
     
+
+def nrc_string(data):
+    code_s = "unknown"
+    if len(data) > 2 and 0x7f == data [0]:
+        code = data [2]
+        sid = data [1]
+
+        if sid in nrc and code in nrc [sid]:
+            code_s = nrc [sid][code]
+        elif code in nrc_generic:
+            code_s = nrc_generic [code]
+
+    return code_s
+
 def read (ctx, func_name, sid, limit = 10):
     """Wait until ECU responds to SID request
 
@@ -89,11 +103,7 @@ def read (ctx, func_name, sid, limit = 10):
 
     if 0x7f == data [0]:
         code = data [2]
-        code_s = "unknown"
-        if sid in nrc and code in nrc [sid]:
-            code_s = nrc [sid][code]
-        elif code in nrc_generic:
-            code_s = nrc_generic [code]
+        code_s = nrc_string(data)
 
         context.output ( func_name \
                 + ": NRC received for sid %x (%s) with nrc %x (%s)" % (sid, service_generic[sid] if sid in service_generic else "unknown", code, code_s))
