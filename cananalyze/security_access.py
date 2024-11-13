@@ -40,7 +40,7 @@ def request_seed (ctx, sa):
     
     return err, data
 
-def send_key (ctx, sa, data, key, alg = custom_sa):
+def send_key (ctx, sa, data):
     """Send security access key
 
     :param ctx: application context
@@ -50,13 +50,9 @@ def send_key (ctx, sa, data, key, alg = custom_sa):
     :param algo: the cryptographic mechanism to use
     :return: -1 on error else 0
     """
-    res = alg (ctx, data , key)
-    if -1 == res:
-        context.output ("sa_send_key: failed to compute key, operation aborted")
-        return -1
-
-    arr = [0x27, sa + 1] + res
+    arr = [0x27, sa + 1] + data
     context.output ("sa_send_key: sending " + hex_array (arr))
+
     uds.write (ctx, arr)
 
     err, data = uds.read (ctx, "sa_send_key", 0x27)
@@ -81,8 +77,13 @@ def start (ctx, sa, key, alg = custom_sa):
     err, data = request_seed(ctx, sa)
     if -1 == err:
         return -1
-   
-    if 0 > send_key (ctx, sa, data, key, alg):
+
+    chal = alg (ctx, data[2:] , key)
+    if -1 == res:
+        context.output ("sa_send_key: failed to compute key, operation aborted")
+        return -1
+
+    if 0 > send_key (ctx, sa, chal):
         return -1
 
     return 0
